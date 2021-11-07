@@ -56,7 +56,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build,sonar]
     env:
-      REPO: {{ secrets.DOCKER_REPO }}
+      REPO: ${{ secrets.DOCKER_REPO }}
     steps:
       - uses: actions/checkout@v1
       - name: Docker Hub Sign-in
