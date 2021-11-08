@@ -20,7 +20,7 @@ jobs:
       - name: Setup JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 1.8
+          java-version: 11
       - name: Cache Maven packages
         uses: actions/cache@v1
         with:
@@ -28,9 +28,9 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2    
       - name: Maven package
-        run: mvn -B clean package
-      - name: Maven Verify
-        run: mvn -B clean verify -DskipTests
+        run: mvn -B package --file pom.xml
+      - name: Unit Test
+        run: mvn test --file pom.xml
   sonar:
     name: Code-Quality check
     runs-on: ubuntu-latest
@@ -39,7 +39,7 @@ jobs:
       - name: Setup JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 1.8
+          java-version: 11
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
         with:
@@ -51,6 +51,7 @@ jobs:
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
   docker:
     name: Publish Docker Image
     runs-on: ubuntu-latest
