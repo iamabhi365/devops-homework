@@ -46,7 +46,7 @@ jobs:
   docker:
     name: Publish Docker Image
     runs-on: ubuntu-latest
-    needs: [build,sonar]
+    needs: [build_n_code_scan]
     env:
       REPO: ${{ secrets.DOCKER_REPO }}
     steps:
