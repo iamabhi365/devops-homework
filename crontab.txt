@@ -1,1 +1,1 @@
-0 * * * * /envarcheck.sh >> /var/log/envarcheck.log
+0 * * * * /opt/envarcheck.sh >> /var/log/envarcheck.log
