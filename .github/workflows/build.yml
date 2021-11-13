@@ -70,4 +70,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: iamabhi365/devops-homework:${GITHUB_RUN_ID}
+          tags: iamabhi365/devops-homework:${{ github.run_number }}
