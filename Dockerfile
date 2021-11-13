@@ -9,7 +9,7 @@ RUN chmod 755 /opt/envarcheck.sh
 RUN crontab /tmp/devops-homeowrk-cronjob \
     && rm -rf /tmp/devops-homeowrk-cronjob
 
-ENV APP_NAME=demoapp
+ENV TASK_NAME=devops-homework
 
 RUN /etc/init.d/crond restart
 
