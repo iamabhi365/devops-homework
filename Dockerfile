@@ -13,4 +13,4 @@ ENV TASK_NAME=devops-homework
 
 EXPOSE 8080
 
-CMD ["java" ,"-jar","devops-homeowrk-app.jar";]
+CMD ["java","-jar","devops-homeowrk-app.jar"]
