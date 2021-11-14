@@ -13,7 +13,7 @@ on:
       - master  
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build_scan_publish:
+  build_deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -21,22 +21,27 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
+          
       - name: Cache SonarQube packages
         uses: actions/cache@v1
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar          
+          restore-keys: ${{ runner.os }}-sonar  
+          
       - name: Cache Maven packages
         uses: actions/cache@v1
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2    
+          restore-keys: ${{ runner.os }}-m2
+          
       - name: Maven package
-        run: mvn -B package --file pom.xml
+        run: mvn clean package --file pom.xml
+        
       - name: Unit Test
         run: mvn test --file pom.xml
+        
       - name: SonarQube scan
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
           -Dsonar.organization=iamabhi365
