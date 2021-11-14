@@ -1,4 +1,4 @@
-FROM openjdk:18-jdk-alpine3.14
+FROM anapsix/alpine-java:latest
 
 RUN apk add --no-cache tini
 
