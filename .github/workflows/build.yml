@@ -60,3 +60,31 @@ jobs:
           tags: iamabhi365/devops-homework:${{ github.run_number }}
         env:
          REPO: ${{ secrets.DOCKER_REPO }}
+
+      - name: Update Tag
+        env:
+           IMAGE_VERSION: ${{ github.run_number }} 
+        run: |
+          sed "s/IMAGE_VERSION/$IMAGE_VERSION/g"  checkweather.yaml > updated_image.yaml
+          cat updated_image.yaml
+
+      - name: Create deployment
+        uses: Eyevinn/action-eks-kubectl@master
+        env:
+            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            IMAGE_VERSION: ${{ github.run_number }}          
+            REGION: us-east-2
+            CLUSTER: devops-homework
+        with:
+          args: apply -f updated_image.yaml
+          
+      - name: Get service list 
+        uses: Eyevinn/action-eks-kubectl@master
+        env:
+            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            REGION: us-east-2
+            CLUSTER: devops-homework
+        with:
+          args: get  svc
