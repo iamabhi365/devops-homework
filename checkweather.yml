@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: checkweather
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: checkweather
+  template:
+    metadata:
+      labels:
+        app: checkweather
+    spec:
+      containers:
+        - name: check-weather-homework
+          image: iamabhi365/devops-homework:IMAGE_VERSION
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: checkweather
+spec:
+  selector:
+    app: checkweather
+
+  ports:
+    - port: 80
+      targetPort: 80
+  type: LoadBalancer
