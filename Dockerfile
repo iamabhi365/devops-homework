@@ -11,6 +11,6 @@ RUN crontab /tmp/devops-homeowrk-cronjob \
 
 ENV TASK_NAME=devops-homework
 
-EXPOSE 8080
+EXPOSE 80
 
 CMD ["java","-jar","devops-homeowrk-app.jar"]
