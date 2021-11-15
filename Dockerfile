@@ -6,8 +6,8 @@ COPY ./target/demo-0.0.1-SNAPSHOT.jar devops-homework-app.jar
 COPY crontab.txt /tmp/devops-homework-cronjob
 COPY envarcheck.sh /opt/envarcheck.sh
 RUN chmod 755 /opt/envarcheck.sh
-RUN crontab /tmp/devops-homeowrk-cronjob \
-    && rm -rf /tmp/devops-homeowrk-cronjob
+RUN crontab /tmp/devops-homework-cronjob \
+    && rm -rf /tmp/devops-homework-cronjob
 
 ENV TASK_NAME=devops-homework
 
